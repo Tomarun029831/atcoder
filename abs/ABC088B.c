@@ -9,12 +9,11 @@ int main(void) {
   for (int i = 0; i < n; i++)
     scanf("%d", a + i);
   qsort(a, n, sizeof(int), (int (*)(const void *, const void *))compare);
-  for (int i = 0; i < n; i += 2) {
-    if (i + 1 == n) {
-      diff_sum += a[i];
-      break;
-    }
-    diff_sum += a[i] - a[i + 1]; // Alice - Bob
+  for (int i = 0; i < n; i++) {
+    if (i % 2 == 0)
+      diff_sum += a[i]; // Alice
+    else
+      diff_sum -= a[i]; // Bob
   }
   printf("%d", diff_sum);
 
