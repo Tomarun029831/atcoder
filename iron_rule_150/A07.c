@@ -2,14 +2,15 @@
 #include <stdlib.h>
 
 int main(){
-	int D,N,L,R,*att;
-	scanf("%d %d", &D,&N);
-	att = calloc(D, sizeof(int));
+	int D,N; scanf("%d %d", &D, &N);
+	int *diff = calloc(D+1, sizeof(int));
+	if(diff==NULL) return 1;
 	for(int i=0; i<N; ++i){
-		scanf("%d %d", &L,&R);
-		for(int j=L-1; j<R; ++j) ++att[j];
+		int L,R; scanf("%d %d", &L,&R);
+		++diff[L-1]; --diff[R];
 	}
-	for(int i = 0; i<D; ++i) printf("%d\n", att[i]);
+	for(int i=0, sum=diff[i];i<D; sum+=diff[++i]) printf("%d\n", sum);
 
+	free(diff);
 	return 0;
 }
