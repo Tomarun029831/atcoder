@@ -1,20 +1,21 @@
 #include <stdio.h>
 
-int A[100000];
+long long A[100000];
 int main(){
-	int N,K; scanf("%d %d",&N,&K);
-	for(int i=0;i<N;++i){
-		int X; scanf("%d",&X);
-		A[i]=X;
+	int N;
+	long long K; scanf("%d %lld",&N,&K);
+	for(int i=0;i<N;++i) scanf("%lld",A+i);
+	long long lsec=1,rsec=10000000000;
+	for(long long mid=(lsec+rsec)/2;lsec<=rsec;mid=(lsec+rsec)/2){
+		long long cnt=0;
+		for(int i=0;i<N;++i){
+			cnt+=mid/A[i];
+			if(cnt>K) break;
+		}
+		if(cnt>=K) rsec=mid-1;
+		else lsec=mid+1;
 	}
-	int sec,cnt;
-	for(sec=1,cnt=0;cnt<K;){
-		++sec;
-		for(int j=0;j<N;++j)
-			if(sec%A[j] == 0)
-				++cnt;
-	}
-	printf("%d\n",sec);
+	printf("%lld\n",lsec);
 
 	return 0;
 }
