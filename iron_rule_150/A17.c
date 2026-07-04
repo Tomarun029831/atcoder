@@ -12,13 +12,14 @@ int main(){
 		const int pathA = dp[i-1]+A[i];
 		const int pathB = dp[i-2]+B[i];
 		dp[i] = (pathA<pathB) ? pathA : pathB;
-		prev[i] = (pathA<pathB) ? i-1 : i-2;
 	}
 
 	int cnt=0;
-	for(int i=N,j=0;i!=0;i=prev[i],++j){
+	for(int i=N,j=0; i>0;++j){
 		path[j]=i;
 		++cnt;
+		if(dp[i-1]+A[i] == dp[i]) i-=1;
+		else i-=2;
 	}
 	printf("%d\n", cnt);
 	for(int i=cnt-1;i>=0;--i) printf("%d ", path[i]);
