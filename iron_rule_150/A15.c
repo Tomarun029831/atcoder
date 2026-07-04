@@ -20,8 +20,11 @@ int main(){
 		if(C[i]==prv) D[i]=cnt;
 		else {++cnt; D[i]=cnt;}
 	for(int i=0;i<N;++i)
-		for(int j=0;j<N;++j)
-			if(A[i]==C[j]) {printf("%lld ", D[j]); break;}
+		for(int l=0,r=N-1,mid=(l+r)/2;l<=r;mid=(l+r)/2){
+			if(C[mid]==A[i]) {printf("%lld ",D[mid]); break;}
+			else if(C[mid]<A[i]) l=mid+1;
+			else r=mid-1;
+		}
 	puts("");
 
 	return 0;
