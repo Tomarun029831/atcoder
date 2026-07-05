@@ -14,9 +14,9 @@ int main(){
 	for(int i=1; i<N+1; ++i) scanf("%d %d",P+i,A+i);
 
 	for(int w=1;w<N;++w) // 幅 1から2はw=1で移動できる
-		for(int o=1;o+w<N+1;++o) // オフセット
-			dp[o][o+w]=max(dp[o+1][o+w] + ((o<P[o] && P[o]<o+w) ? A[o] : 0),
-					dp[o][o+w-1] + ((o-1<P[o+w] && P[o+w]<o+w) ? A[o+w] : 0));
+		for(int l=1,r=l+w;r<N+1;++l,r=l+w)
+			dp[l][r]=max(dp[l+1][r] + ((l<P[l] && P[l]<r+1) ? A[l] : 0),
+					dp[l][r-1] + ((l-1<P[r] && P[r]<r) ? A[r] : 0));
 	printf("%d\n",dp[1][N]);
 
 	return 0;
