@@ -1,13 +1,15 @@
 #include <stdio.h>
 
-int A[100001];
+int A[100001], memo[100001];
 int dfs(int i, int N){
+	if(memo[i]!=0) return memo[i];
 	int max=0;
 	for(int j=i+1;j<N+1;++j){
 		if(A[i]>=A[j]) continue;
 		const int temp = dfs(j, N);
 		if(temp>max) max = temp;
 	}
+	memo[i]=max+1;
 	return max+1;
 }
 
