@@ -15,10 +15,7 @@ int main(){
 		for(int j=1;j<N+1;++j)
 			     dp[i][j] = (dp[i-1][j] || (dp[i-1][j-1] && A[i][j]));
 	for(int i=1;i<M+1;++i)
-		if(dp[i][N]){
-			printf("%d\n",i);
-			return 0;
-		}
+		if(dp[i][N]){ printf("%d\n",i); return 0; }
 
 	printf("-1\n");
 	return 0;
