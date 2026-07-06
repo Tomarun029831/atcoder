@@ -2,24 +2,19 @@
 
 /*
 
-A:2 B:3
-8 A
-6 B
-3 A
-1 -> first
-取り除いた回数が1多い方が勝者
+A個除くかB個除くか
 
+dp[i]:	残り個数iにおいてFirstが勝つなら 1 そうでないなら 0
+dp[i] =	(i>=A) && !dp[i-A] ||	// A個取り除けるとき、取り除いた後のターンで Bが負ける(Aが負けるを反転する)なら勝ち
+	(i>=B) && !dp[i-B]	// B個取り除けるとき、取り除いた後のターンで Bが負ける(Aが負けるを反転する)なら勝ち
 */
 
+int dp[100001];
 int main(){
 	int N,A,B; scanf("%d %d %d",&N,&A,&B);
-	int turn=0,cntA=1,cntB=0;
-	while(cntA*A+cntB*B<=N){
-		cntA+=(turn==1 ? 1:0);
-		cntB+=(turn==0 ? 1:0);
-		turn=(turn==0 ? 1:0);
-	}
-	puts(turn ? "First" : "Second");
-
+	for(int i=0; i<N+1; ++i)
+		dp[i] =	((i>=A) && !dp[i-A]) ||	// A個取り除けるとき、取り除いた後のターンで Bが負ける(Aが負けるを反転する)なら勝ち
+			((i>=B) && !dp[i-B]);	// B個取り除けるとき、取り除いた後のターンで Bが負ける(Aが負けるを反転する)なら勝ち
+	puts(dp[N] ? "First" : "Second");
 	return 0;
 }
